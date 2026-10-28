@@ -102,7 +102,7 @@ h2{font-family:var(--f-script);font-weight:700;font-size:clamp(32px,8vw,42px);li
 .lifted .pocket,.lifted .flap,.lifted .env-back{opacity:0;transform:translateY(40px)}
 .lifted .flap{transform:rotateX(180deg) translateY(-40px)}
 
-/* ============ HERO: the printed card's frame, stretched ============ */
+/* ============ HERO: the printed card's frame (one fixed-ratio artwork) ============ */
 .hero{background:linear-gradient(180deg,var(--dawn) 0%,var(--dawn-2) 30%,var(--paper) 78%);padding-block:calc(min(500px,100vw - 32px) * .27 + 24px) 44px}
 .sky-sparkle{position:absolute;width:12px}
 @keyframes twinkle{0%,100%{opacity:.15;transform:scale(.7)}50%{opacity:.9;transform:scale(1)}}
@@ -112,33 +112,29 @@ h2{font-family:var(--f-script);font-weight:700;font-size:clamp(32px,8vw,42px);li
 @keyframes rise{0%{opacity:0;transform:translate(0,0) scale(1)}10%{opacity:.8}70%{opacity:.55}100%{opacity:0;transform:translate(30px,-900px) scale(.55)}}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-.hf{position:relative;width:min(500px,100%);margin:0 auto;container-type:inline-size}
-/* mandala sits behind the frame: clipped along the frame's top green lines, rises like the sun */
+.hf{position:relative;width:min(500px,100%);margin:0 auto;container-type:inline-size;aspect-ratio:339.53/411.46}
+/* mandala sits behind the frame: clipped along the frame's top green lines, rises then turns slowly */
 .hf-crown{position:absolute;left:0;top:-26cqw;width:100cqw;height:56cqw;z-index:0;pointer-events:none;
-  clip-path:polygon(0 0,100% 0,100% 55.6cqw,52cqw 26.6cqw,50cqw 26.2cqw,48cqw 26.6cqw,0 55.6cqw)}
+  clip-path:polygon(0 0,100% 0,100% 55.4cqw,50cqw 25.4cqw,0 55.4cqw)}
 .hf-crown .rise{position:absolute;left:27cqw;top:3cqw;width:46cqw;transform:translateY(42%);transition:transform 3s cubic-bezier(.2,.7,.2,1) .4s;filter:drop-shadow(0 0 10px rgba(255,200,90,.5))}
 .hf-crown .rise img{width:100%;animation:spin 120s linear infinite}
 html.awake .hf-crown .rise{transform:translateY(0)}
-.hf-layer{position:absolute;inset:0;pointer-events:none;z-index:1}
-.hf-top,.hf-bot{position:absolute;left:0;right:0;display:flex}
-.hf-top{top:0}.hf-bot{bottom:0}
-.hf-top img,.hf-bot img{width:50%;height:auto}
-.hf-top img+img,.hf-bot img+img{transform:scaleX(-1)}
-/* green side lines join the two halves: same x and weight as the frame's own green stroke */
-.hf-line{position:absolute;top:calc(50cqw * 195.38 / 155.41 - 1px);bottom:calc(50cqw * 216.06 / 155.23 - 1px);width:max(1px,calc(50cqw / 155.41));background:var(--leaf)}
-.hf-line.l{left:calc(50cqw * 16.16 / 155.41)}
-.hf-line.r{right:calc(50cqw * 16.16 / 155.41)}
-.hf-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;text-align:center;padding:27cqw 15cqw 52cqw;min-height:150cqw;justify-content:flex-start}
-.hf-content .wo{width:46cqw}
-.hf-content .logo{width:80cqw;max-width:none;margin-top:1cqw}
-.hf-content .knot{width:56cqw;margin-top:9cqw}
-.hf-content .date{font-size:clamp(19px,5.6cqw,26px);font-weight:400;color:#46592f;margin-top:3cqw;line-height:1.5}
-.hf-content .place{font-size:clamp(16px,4.6cqw,21px);color:#46592f;line-height:1.5}
-.hf-content .knot.end{margin-top:3cqw}
-.hf-couple{position:absolute;left:50%;bottom:4.5cqw;width:46cqw;translate:-50% 0;z-index:2;-webkit-mask-image:linear-gradient(#000 80%,transparent);mask-image:linear-gradient(#000 80%,transparent)}
-.deco-l,.deco-r{position:absolute;inset:0;pointer-events:none;z-index:3}
-.deco-r{transform:scaleX(-1)}
-.deco{position:absolute;pointer-events:none;max-width:none}
+.hf-frame{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-events:none}
+/* couple is clipped to the inside of the frame's green lines, cut by the bottom V like the printed card */
+.hf-couple-clip{position:absolute;inset:0;z-index:2;clip-path:polygon(9.4cqw 0,90.6cqw 0,90.6cqw 92.7cqw,50cqw 117.9cqw,9.4cqw 92.7cqw)}
+.hf-couple{position:absolute;left:33.03cqw;top:79.4cqw;width:31.7cqw;max-width:none}
+.hf-content{position:absolute;inset:0;z-index:4;pointer-events:none}
+.hf-content > *{position:absolute;left:50%;translate:-50% 0;margin:0;text-align:center;white-space:nowrap}
+.hf-content .wo{top:14.9cqw;width:31.7cqw}
+.hf-content .logo-h{top:23.6cqw;width:66.5cqw}
+.hf-content .logo-h img{width:100%}
+.hf-content .hdiv{top:49cqw;width:46cqw}
+.hf-content .hdiv img{width:100%}
+.hf-content .date{top:57.4cqw;font-size:clamp(17px,5.3cqw,26px);font-weight:400;color:#46592f;line-height:1.5}
+.hf-content .place{top:65cqw;font-size:clamp(14px,4.3cqw,21px);color:#46592f;line-height:1.5}
+.hf-content .hdiv.end{top:72.8cqw}
+.flip-y{transform:scaleY(-1)}
+.deco{position:absolute;pointer-events:none;max-width:none;z-index:4}
 .spk{animation:sparkle var(--d,3.4s) ease-in-out var(--dl,0s) infinite both;filter:drop-shadow(0 0 3px rgba(255,214,120,.95))}
 @keyframes sparkle{0%,100%{opacity:0;transform:scale(.25) rotate(0deg)}40%{opacity:1;transform:scale(1) rotate(22deg)}50%{opacity:1;transform:scale(1.25) rotate(30deg)}62%{opacity:.85;transform:scale(.9) rotate(38deg)}}
 .sway{animation:sway 9s ease-in-out infinite alternate}
@@ -177,13 +173,45 @@ html.awake .d1{transition-delay:1.2s}html.awake .d2{transition-delay:1.6s}html.a
 /* phones: bride, monogram, groom stacked in one centred column */
 @media (max-width:600px){.pair{grid-template-columns:1fr;justify-items:center;gap:10px;width:100%}.mark{width:44px}}
 
+/* ============ PHOTOS: polaroids on the wall ============ */
+/* each image is a whole drawn polaroid on a transparent background (frame, leaves and roots included),
+   shown as is: no tape, no shadow. The four have different shapes (two landscape, one portrait, one square).
+   Phones: two loose columns, 1+4 and 2+3, which come out about the same height. Desktop: one staggered row, 1–4. */
+.pics{background:var(--paper);padding-block:8px 24px}
+.wall{position:relative;z-index:1;display:flex;align-items:flex-start;gap:2%;width:min(980px,100%);margin:0 auto}
+.wcol{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center}
+.pol{--r:0deg;--x:0%;--y:0px;--w:112%;--dl:0s;position:relative;flex:none;width:var(--w);margin:var(--y) 0 0;left:var(--x);rotate:var(--r);transition:rotate .5s cubic-bezier(.2,.7,.2,1),scale .5s cubic-bezier(.2,.7,.2,1)}
+.pol img{width:100%;height:auto}
+.pol:hover{rotate:0deg;scale:1.06;z-index:2}
+/* the two columns lean in toward each other so the photos overlap a little in the middle */
+.p1{--r:-5deg;--x:5%}
+.p2{--r:5deg;--w:96%;--y:22px;--x:-7%;--dl:.12s}
+.p3{--r:-3deg;--y:-6px;--x:-6%;--dl:.36s}
+.p4{--r:4deg;--w:106%;--y:-14px;--x:6%;--dl:.24s}
+/* sparkles twinkle over the photos, not behind them */
+.pics .spk-free{z-index:3}
+@media (min-width:760px){
+  .wall{align-items:center;gap:0}
+  .wcol{display:contents}
+  .pol{flex:1 1 0;width:auto;left:0}
+  .p1{order:1;--y:10px;flex-grow:1.1}
+  .p2{order:2;--y:-30px;flex-grow:.85}
+  .p3{order:3;--y:34px;flex-grow:1.15}
+  .p4{order:4;--y:-6px;flex-grow:1}
+  .pol{margin-inline:-2.6%}
+}
+/* they land one after another, swinging into their tilt */
+html.rv-on .pol.rv{rotate:calc(var(--r) * 2.4);transition:opacity .8s ease var(--dl),translate 1s cubic-bezier(.2,.7,.2,1) var(--dl),rotate 1.1s cubic-bezier(.2,.7,.2,1) var(--dl),scale .5s cubic-bezier(.2,.7,.2,1)}
+html.rv-on .pol.rv.in{rotate:var(--r)}
+html.rv-on .pol.rv.in:hover{rotate:0deg;transition-delay:0s}
+
 /* ============ SECTION HEADER: two halves + stretchable gold box ============ */
 .hd{--hh:clamp(70px,19vw,100px);display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:end;width:100%}
 .hd img{height:var(--hh);width:auto;max-width:none;justify-self:end}
 .hd img.r{justify-self:start;transform:scaleX(-1)}
 .hd-box{box-sizing:border-box;height:calc(var(--hh) * 18.18 / 57.31);border-block:max(.6px,calc(var(--hh) * .5 / 57.31)) solid var(--gold);display:flex;align-items:center;justify-content:center;padding-inline:8px}
 .hd-box span{font-family:var(--f-script);font-weight:700;font-size:calc(var(--hh) * .24);line-height:1;color:var(--leaf);white-space:nowrap;translate:0 .06em}
-.divider{width:min(300px,74%)}
+.divider{width:calc(min(500px,100vw - 32px) * .46);max-width:100%}
 
 /* ============ SCHEDULE ============ */
 .sch{background:linear-gradient(180deg,var(--paper),var(--sage))}
@@ -234,6 +262,32 @@ html.rv-on .rv{opacity:0;translate:0 22px;transition:opacity .9s ease,translate 
 html.rv-on .rv.in{opacity:1;translate:0 0}
 html.rv-on .edge.rv{translate:0 0;opacity:0;transition:opacity 1.6s ease}
 html.rv-on .edge.rv.in{opacity:1}
+/* ============ SONG: small player that fades in after the letter opens ============ */
+/* anchored from the right in both states, so tucking can animate width, position and corners:
+   the card shrinks into the ♪ button while the rest slides out of view behind it */
+.song{--ease:cubic-bezier(.4,0,.2,1);position:fixed;z-index:40;bottom:calc(14px + env(safe-area-inset-bottom,0px));
+  width:min(380px,calc(100% - 32px));right:calc((100% - min(380px,calc(100% - 32px))) / 2);translate:0 18px;
+  display:flex;justify-content:flex-end;overflow:hidden;
+  background:rgba(255,253,247,.95);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:16px;
+  box-shadow:0 18px 40px -20px rgba(0,60,45,.45);padding:10px;opacity:0;pointer-events:none;
+  transition:opacity 1.4s ease,translate 1.4s ease,width .6s var(--ease),right .6s var(--ease),padding .6s var(--ease),border-radius .6s var(--ease)}
+.song.on{opacity:1;translate:0 0;pointer-events:auto}
+/* the row keeps the open card's width, so nothing reflows while the card shrinks */
+.song-head{flex:none;width:calc(min(380px,100vw - 32px) - 22px);display:flex;align-items:center;gap:10px;padding:0 0 0 4px}
+.song-head img{width:26px;flex:none}
+.song-head img,.song-title,.song-play{transition:opacity .4s ease .2s,visibility 0s}
+.song-title{flex:1;min-width:0;display:grid;line-height:1.3}
+.song-title b{font-family:var(--f-script);font-weight:700;font-size:18px;color:var(--leaf)}
+.song-title span{font-size:12px;color:var(--muted)}
+.song-title a{color:var(--leaf-2)}
+.song-x{flex:none;width:44px;height:44px;border:0;border-radius:50%;background:var(--sage);color:var(--leaf);font:inherit;font-size:18px;cursor:pointer}
+.song-play{flex:none;width:44px;height:44px;border:0;border-radius:50%;background:var(--leaf);color:var(--paper);cursor:pointer;display:grid;place-items:center;padding:0;box-shadow:0 6px 14px -8px var(--leaf)}
+.song-play svg{width:20px;height:20px;fill:currentColor}
+.song-play .i-pause,.song.playing .song-play .i-play{display:none}
+.song.playing .song-play .i-pause{display:inline}
+/* tucked: a small pill that keeps play/pause one tap away, next to ♪ (which opens the card again) */
+.song.min{width:112px;right:max(16px,env(safe-area-inset-right,0px));padding:6px;border-radius:29px}
+.song.min .song-head img,.song.min .song-title{opacity:0;visibility:hidden;transition:opacity .25s ease,visibility 0s .25s}
 footer{background:var(--sage)}
 footer .sorry{font-size:14px;color:var(--leaf-2)}
 </style>
@@ -288,49 +342,22 @@ footer .sorry{font-size:14px;color:var(--leaf-2)}
 
     <div class="hf">
       <div class="hf-crown"><div class="rise"><img src="img/mandala.svg" alt=""></div></div>
-      <div class="hf-layer" aria-hidden="true">
-        <div class="hf-top"><img src="img/frame-top.svg" alt=""><img src="img/frame-top.svg" alt=""></div>
-        <span class="hf-line l"></span><span class="hf-line r"></span>
-        <div class="hf-bot"><img src="img/frame-bottom.svg" alt=""><img src="img/frame-bottom.svg" alt=""></div>
-      </div>
-
-      <!-- vines and swirls start ON the frame lines, positioned from each SVG's measured stem point -->
-      <div class="deco-l" aria-hidden="true">
-        <img class="deco" src="img/swirl-c.svg" alt="" style="left:10cqw;width:20cqw;top:18.74cqw;transform-origin:0% 78.9%;transform:rotate(-17deg);">
-        <img class="deco" src="img/swirl-e.svg" alt="" style="left:0.98cqw;width:11cqw;top:37cqw;">
-        <img class="deco" src="img/vine.svg" alt="" style="left:-0.62cqw;width:6cqw;top:37.89cqw;transform:scaleY(-1);">
-        <img class="deco sway" src="img/sf1.png" alt="" style="left:-7.63cqw;width:26cqw;top:12.08cqw;animation-delay:0s;">
-        <img class="deco" src="img/vine.svg" alt="" style="left:-1.66cqw;width:7cqw;bottom:43.54cqw;">
-        <img class="deco" src="img/swirl-b.svg" alt="" style="left:7.02cqw;width:20cqw;bottom:17.29cqw;">
-        <img class="deco sway" src="img/sf2.png" alt="" style="left:-7.67cqw;width:26cqw;bottom:17.86cqw;animation-delay:-6s;">
-        <img class="deco spk" src="img/sparkle.svg" alt="" style="left:21cqw;top:31cqw;width:3cqw;--dl:.4s">
-        <img class="deco spk" src="img/sparkle.svg" alt="" style="left:1cqw;top:64cqw;width:2.6cqw;--dl:1.6s">
-        <img class="deco spk" src="img/sparkle.svg" alt="" style="left:25cqw;bottom:31cqw;width:2.6cqw;--dl:2.3s">
-        <img class="deco spk" src="img/sparkle.svg" alt="" style="left:13cqw;top:6cqw;width:2.2cqw;--dl:1s">
-      </div>
-      <div class="deco-r" aria-hidden="true">
-        <img class="deco" src="img/swirl-c.svg" alt="" style="left:10cqw;width:20cqw;top:18.74cqw;transform-origin:0% 78.9%;transform:rotate(-17deg);">
-        <img class="deco" src="img/vine.svg" alt="" style="left:5.36cqw;width:7cqw;top:27.58cqw;transform:scaleX(-1);">
-        <img class="deco sway" src="img/sf3.png" alt="" style="left:-8.13cqw;width:27cqw;top:55.59cqw;transform:rotate(-70deg);animation-delay:-3s;">
-        <img class="deco" src="img/swirl-a.svg" alt="" style="left:3.05cqw;width:9cqw;top:78cqw;">
-        <img class="deco" src="img/swirl-d.svg" alt="" style="left:-6cqw;width:32cqw;bottom:18.03cqw;transform:scaleX(-1);">
-        <img class="deco" src="img/vine.svg" alt="" style="left:5.32cqw;width:7cqw;bottom:33.54cqw;transform:scaleX(-1);">
-        <img class="deco spk" src="img/sparkle.svg" alt="" style="left:12cqw;top:9cqw;width:2.6cqw;--dl:.9s">
-        <img class="deco spk" src="img/sparkle.svg" alt="" style="left:1cqw;top:31cqw;width:2.4cqw;--dl:2.6s">
-        <img class="deco spk" src="img/sparkle.svg" alt="" style="left:17cqw;top:58cqw;width:3cqw;--dl:1.3s">
-        <img class="deco spk" src="img/sparkle.svg" alt="" style="left:20cqw;bottom:40cqw;width:3cqw;--dl:.2s">
-        <img class="deco spk" src="img/sparkle.svg" alt="" style="left:1cqw;bottom:54cqw;width:2.4cqw;--dl:3s">
-      </div>
-
+      <div class="hf-couple-clip"><img class="hf-couple" src="img/couple-fit.png" alt="ภาพวาดโย๋และบูมในชุดพื้นเมือง"></div>
+      <img class="hf-frame" src="img/frame.svg" alt="">
       <div class="hf-content">
         <img class="wo fade-up d1" src="img/wedof.png" alt="The wedding of">
-        <h1 style="margin:0;display:flex;justify-content:center" class="fade-up d2"><img class="logo" src="img/logo.png" alt="Yow &amp; Boom"></h1>
-        <div class="knot fade-up d3"><img src="img/knot.svg" alt=""></div>
+        <h1 class="logo-h fade-up d2"><img src="img/logo.png" alt="Yow &amp; Boom"></h1>
+        <div class="hdiv fade-up d3"><img src="img/divider.svg" alt=""></div>
         <p class="date fade-up d3">วันเสาร์ที่ 13 มีนาคม 2570</p>
         <p class="place fade-up d3">ณ พิพิธภัณฑ์ตุ๊กตาเชียงใหม่</p>
-        <div class="knot end fade-up d3"><img src="img/knot.svg" alt=""></div>
+        <div class="hdiv end fade-up d3"><img class="flip-y" src="img/divider.svg" alt=""></div>
       </div>
-      <img class="hf-couple" src="img/couple.png" alt="ภาพวาดโย๋และบูมในชุดพื้นเมือง">
+      <img class="deco spk" src="img/sparkle.svg" alt="" style="left:22cqw;top:32cqw;width:3cqw;--dl:.4s">
+      <img class="deco spk" src="img/sparkle.svg" alt="" style="left:80cqw;top:28cqw;width:2.6cqw;--dl:1.5s">
+      <img class="deco spk" src="img/sparkle.svg" alt="" style="left:24cqw;top:84cqw;width:2.8cqw;--dl:2.2s">
+      <img class="deco spk" src="img/sparkle.svg" alt="" style="left:74cqw;top:82cqw;width:3.2cqw;--dl:.9s">
+      <img class="deco spk" src="img/sparkle.svg" alt="" style="left:58cqw;top:96cqw;width:2.4cqw;--dl:3s">
+      <img class="deco spk" src="img/sparkle.svg" alt="" style="left:14cqw;top:50cqw;width:2.2cqw;--dl:1.1s">
     </div>
 
     <div class="col"><a class="cta hero-cta fade-up d4" href="#rsvp">ตอบรับคำเชิญ</a></div>
@@ -379,6 +406,21 @@ footer .sorry{font-size:14px;color:var(--leaf-2)}
     </div>
   </section>
 
+  <!-- ================= PHOTOS: four polaroids taped to the wall ================= -->
+  <!-- photos are split into two columns for phones (1+4, 2+3 balance in height); desktop shows them in order 1–4 -->
+  <section class="band pics" aria-label="ภาพของโย๋และบูม">
+    <div class="wall">
+      <div class="wcol">
+        <figure class="pol p1"><img src="img/photo-1.webp" alt="โย๋ถือช่อดอกไม้ บูมกอดจากด้านหลัง ทั้งคู่หัวเราะ" width="800" height="642" loading="lazy"></figure>
+        <figure class="pol p4"><img src="img/photo-4.webp" alt="โย๋และบูมยิ้มคู่กัน โย๋ในชุดสีเหลือง บูมในสูทสีเขียว" width="800" height="784" loading="lazy"></figure>
+      </div>
+      <div class="wcol">
+        <figure class="pol p2"><img src="img/photo-2.webp" alt="โย๋และบูมกอดกันหน้าน้ำพุยามค่ำ" width="701" height="800" loading="lazy"></figure>
+        <figure class="pol p3"><img src="img/photo-3.webp" alt="โย๋หอมแก้มบูมที่ริมหน้าต่าง" width="800" height="590" loading="lazy"></figure>
+      </div>
+    </div>
+  </section>
+
   <!-- ================= SCHEDULE ================= -->
   <section class="band sch" aria-labelledby="sch-h">
     <img class="edge sway" src="img/sf1.png" alt="" style="left:calc(clamp(90px,24vw,170px) * -0.45);top:8%;width:clamp(90px,24vw,170px);transform:rotate(-15deg);animation-delay:-1s">
@@ -423,7 +465,7 @@ footer .sorry{font-size:14px;color:var(--leaf-2)}
       <p class="eyebrow" id="dc-h" style="margin-top:8px">เดรสโค้ด</p>
       <p class="big">ชุดพื้นเมือง</p>
       <p class="tag">#YOWBOOMม่วนใจ๋</p>
-      <img class="divider" src="img/divider.svg" alt="" style="margin-top:8px">
+      <img class="divider flip-y" src="img/divider.svg" alt="" style="margin-top:8px">
     </div>
   </section>
 
@@ -445,7 +487,7 @@ footer .sorry{font-size:14px;color:var(--leaf-2)}
     </div>
   </section>
 
-  <footer class="band" style="padding-block:44px 56px">
+  <footer class="band" style="padding-block:44px 150px">
     <div class="col" style="gap:10px">
       <img src="img/mark.png" alt="" style="width:42px">
       <p class="sorry">ขออภัยหากมิได้มาเรียนเชิญด้วยตัวเอง</p>
@@ -454,6 +496,19 @@ footer .sorry{font-size:14px;color:var(--leaf-2)}
     </div>
   </footer>
 </main>
+
+<!-- ================= SONG ================= -->
+<aside class="song" id="song" aria-label="เพลงประกอบ">
+  <div class="song-head">
+    <img src="img/monogram.svg" alt="">
+    <div class="song-title"><b>ปะแล๊ดปะแล่น</b><span>เพลงที่โย๋เลือกให้งานนี้</span></div>
+    <button class="song-play" id="song-play" type="button" aria-label="เล่นเพลง">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path class="i-play" d="M8 5.5v13l10.5-6.5z"/><path class="i-pause" d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg>
+    </button>
+    <button class="song-x" id="song-x" type="button" aria-label="ย่อเครื่องเล่นเพลง" aria-expanded="true">♪</button>
+  </div>
+  <audio id="song-audio" src="img/song.mp3" preload="auto" loop></audio>
+</aside>
 
 <script>
 /* Optional personal greeting: a link ending in #g01 shows that guest's name
@@ -484,9 +539,42 @@ const GUESTS = {
     root.classList.add('awake');
     unlock();
     window.scrollTo(0,0);
+    showSong();
   }
+  /* song: img/song.mp3 starts at the part Spotify's preview plays (0:59.6 of the track) and is
+     mastered quiet, since iPhones ignore audio.volume. Browsers allow sound only after a tap,
+     so the seal (or skip) tap starts it. The card fades in once the letter is open. */
+  const song = $('song'), audio = $('song-audio'), playBtn = $('song-play');
+  let songTimer;
+  function playSong(){ if (audio.paused) audio.play().catch(() => {}); }
+  function syncPlay(){
+    song.classList.toggle('playing', !audio.paused);
+    playBtn.setAttribute('aria-label', audio.paused ? 'เล่นเพลง' : 'หยุดเพลง');
+  }
+  audio.addEventListener('play', syncPlay);
+  audio.addEventListener('pause', syncPlay);
+  playBtn.addEventListener('click', () => audio.paused ? playSong() : audio.pause());
+  function showSong(){ clearTimeout(songTimer); songTimer = setTimeout(() => song.classList.add('on'), reduce ? 0 : 1800); }
+  let songTouched = false;
+  function setMin(min){
+    song.classList.toggle('min', min);
+    $('song-x').setAttribute('aria-expanded', String(!min));
+    $('song-x').setAttribute('aria-label', min ? 'เปิดเครื่องเล่นเพลง' : 'ย่อเครื่องเล่นเพลง');
+  }
+  // once the guest starts reading, tuck the player into a small ♪ button (music keeps playing)
+  window.addEventListener('scroll', () => {
+    if (!songTouched && song.classList.contains('on') && window.scrollY > 380) setMin(true);
+  }, { passive: true });
+  $('song-x').addEventListener('click', () => {
+    songTouched = true;
+    const min = song.classList.toggle('min');
+    $('song-x').setAttribute('aria-expanded', String(!min));
+    $('song-x').setAttribute('aria-label', min ? 'เปิดเครื่องเล่นเพลง' : 'ย่อเครื่องเล่นเพลง');
+  });
+
   function openLetter(){
     if (opened) return; opened = true;
+    playSong();
     gate.classList.add('opening'); $('env').classList.add('opening');
     if (reduce) { timers.push(setTimeout(enterSite, 50)); return; }
     timers.push(setTimeout(() => $('env').classList.add('lifted'), 2000));
@@ -495,14 +583,15 @@ const GUESTS = {
   function resetGate(){
     timers.forEach(clearTimeout); timers = []; opened = false;
     root.classList.remove('awake');
+    clearTimeout(songTimer); song.classList.remove('on');
     gate.classList.remove('leave','opening'); $('env').classList.remove('opening','lifted');
     lock(); window.scrollTo(0,0);
     setTimeout(()=>$('seal').focus(),50);
   }
-  if (tok === 'rsvp') { gate.classList.add('leave'); root.classList.add('awake'); }
+  if (tok === 'rsvp') { gate.classList.add('leave'); root.classList.add('awake'); showSong(); }
   else lock();
   $('seal').addEventListener('click', openLetter);
-  $('skip').addEventListener('click', () => { opened = true; enterSite(); });
+  $('skip').addEventListener('click', () => { opened = true; playSong(); enterSite(); });
   $('replay').addEventListener('click', resetGate);
 
   /* ---------- countdown: 07:09 Chiang Mai time ---------- */
@@ -540,7 +629,7 @@ const GUESTS = {
 
   /* ---------- fade in on scroll ---------- */
   if ('IntersectionObserver' in window && !reduce) {
-    const items = document.querySelectorAll('main section:not(.hero) .col > :not(.timeline), .ev, .edge, footer .col > *');
+    const items = document.querySelectorAll('main section:not(.hero) .col > :not(.timeline), .ev, .pol, .edge, footer .col > *');
     root.classList.add('rv-on');
     const io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }), { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
     items.forEach(el => { el.classList.add('rv'); io.observe(el); });
